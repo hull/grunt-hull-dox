@@ -29,7 +29,7 @@
     "test": "grunt test"
   },
   "dependencies": {
-    "dox": "*",
+    "dox": "http://github.com/hull/dox/tarball/master",
     "dox-foundation": "*",
     "rimraf": "2.x"
   },
