@@ -9,6 +9,7 @@
 var exec = require('child_process').exec,
     fs = require('fs'),
     rimraf = require('rimraf');
+    path = require('path');
 
 module.exports = function(grunt) {
 
@@ -24,15 +25,23 @@ module.exports = function(grunt) {
     var files = grunt.file.expandFiles(this.file.src),
         dest = this.file.dest;
         done = this.async();
-    
+
     // Cleanup any existing docs
     rimraf.sync(dest);
 
-    exec('cat ' + files.join(' ') + ' | dox-foundation', function(error, stout, sterr){
-      grunt.file.write(dest + '/' + 'api.html', stout);
-      grunt.log.writeln('Files "' + files.join(' ') + '" doxxed.');
-      if (!error) done();
-    })
+    function writeFile (file, bn) {
+      return function(error, stout,sterr){
+        grunt.file.write(dest+'/'+bn+'.json', stout);
+        grunt.log.writeln('File "' + file + '" doxxed.');
+      };
+    }
+
+    for (var i = files.length - 1; i >= 0; i--) {
+      var file = files[i];
+      var dn = path.basename(path.dirname(file))
+      var bn = path.basename(file, '.js');
+      exec('cat '+file+' | dox ', writeFile(file, dn));
+    }
   });
 
 };
