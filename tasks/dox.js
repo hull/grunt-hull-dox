@@ -30,8 +30,22 @@ module.exports = function(grunt) {
     rimraf.sync(dest);
 
     function writeFile (file, bn) {
-      return function(error, stout,sterr){
-        grunt.file.write(dest+'/'+bn+'.json', stout);
+      return function(error, stout, sterr){
+        var widget = JSON.parse(stout);
+        var templates = {}
+        var t = grunt.file.expand(path.dirname(file)+'/*.hbs');
+        for (var i = t.length - 1; i >= 0; i--) {
+          var template = t[i];
+          template_basename = path.basename(template,'.hbs');
+          templates[template_basename]=grunt.file.read(template)
+        };
+
+        var content = {
+          widget : widget,
+          templates: templates
+        }
+
+        grunt.file.write(dest+'/'+bn+'.json', JSON.stringify(content));
         grunt.log.writeln('File "' + file + '" doxxed.');
       };
     }
