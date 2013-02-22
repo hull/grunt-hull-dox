@@ -1,27 +1,27 @@
 {
-  "name": "grunt-dox",
-  "description": "Dox grunt plugin",
+  "name": "grunt-hull-dox",
+  "description": "Dox grunt plugin for Aura/Hull widgets",
   "version": "0.2.0",
-  "homepage": "https://github.com/mattmcmanus/grunt-dox",
+  "homepage": "https://github.com/hull/grunt-hull-dox",
   "author": {
-    "name": "Matt McManus",
-    "email": "mcmanus@punkave.com"
+    "name": "The Hullers",
+    "email": "contact@hull.io"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/hull/grunt-dox.git"
+    "url": "git://github.com/hull/grunt-hull-dox.git"
   },
   "bugs": {
-    "url": "https://github.com/punkave/grunt-dox/issues"
+    "url": "https://github.com/hull/grunt-hull-dox/issues"
   },
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/hull/grunt-dox/blob/master/LICENSE-MIT"
+      "url": "https://github.com/hull/grunt-hull-dox/blob/master/LICENSE-MIT"
     }
   ],
   "main": "grunt.js",
-  "bin": "bin/grunt-dox",
+  "bin": "bin/grunt-hull-dox",
   "engines": {
     "node": "*"
   },

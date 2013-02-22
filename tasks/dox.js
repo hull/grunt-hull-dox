@@ -1,8 +1,9 @@
 /*
- * grunt-dox
- * https://github.com/mattmcmanus/grunt-dox
+ * grunt-hull-dox
+ * based on https://github.com/mattmcmanus/grunt-hull-dox
+ * This is a custom dox generator which parses documentation and templates for the aura/hull widgets, and generates an index.
  *
- * Copyright (c) 2012 Matt McManus
+ * Copyright (c) 2012 Matt McManus, Hull
  * Licensed under the MIT license.
  */
 
