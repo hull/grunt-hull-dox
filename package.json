@@ -1,7 +1,7 @@
 {
   "name": "grunt-hull-dox",
   "description": "Dox grunt plugin for Aura/Hull widgets",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "homepage": "https://github.com/hull/grunt-hull-dox",
   "author": {
     "name": "The Hullers",

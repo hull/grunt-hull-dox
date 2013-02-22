@@ -24,41 +24,44 @@ module.exports = function(grunt) {
 
   grunt.registerMultiTask('dox', 'Generate dox output ', function() {
     
-    var files = grunt.file.expandFiles(this.file.src),
-        dest = this.file.dest,
-        done = this.async(),
-        index={ widgets:[] };
+    for (var i = this.files.length - 1; i >= 0; i--) {
+      var files = this.files[i];
+      var sources = files.src,
+          dest = files.dest,
+          done = this.async(),
+          index={ widgets:[] };
 
-    // Cleanup any existing docs
-    rimraf.sync(dest);
-    grunt.log.writeln('Doxxing ' + files+ 'with dox v'+dox.version);
+      // Cleanup any existing docs
+      rimraf.sync(dest);
+      grunt.log.writeln('Doxxing ' + sources+ 'with dox v'+dox.version);
 
-    function writeFile (file, bn) {
-      var widget = dox.parseComments(grunt.file.read(file));
-      var templates = {}
-      var t = grunt.file.expand(path.dirname(file)+'/*.hbs');
-      for (var i = t.length - 1; i >= 0; i--) {
-        var template = t[i];
-        template_basename = path.basename(template,'.hbs');
-        templates[template_basename]=grunt.file.read(template)
-      };
-      return {
-        widget : widget,
-        templates: templates
+      function writeFile (file, bn) {
+        var widget = dox.parseComments(grunt.file.read(file));
+        var templates = {}
+        var t = grunt.file.expand(path.dirname(file)+'/*.hbs');
+        for (var i = t.length - 1; i >= 0; i--) {
+          var template = t[i];
+          template_basename = path.basename(template,'.hbs');
+          templates[template_basename]=grunt.file.read(template)
+        };
+        return {
+          widget : widget,
+          templates: templates
+        }
       }
-    }
 
-    for (var i = files.length - 1; i >= 0; i--) {
-      var file = files[i];
-      var dn = path.basename(path.dirname(file))
-      var bn = path.basename(file, '.js');
-      var entry = writeFile(file, dn);
-      grunt.file.write(dest+'/'+dn+'/main.json', JSON.stringify(entry));
-      grunt.log.writeln('Widget "' + file + '" doxxed.');
-      index.widgets.push(dn)
-    }
+      for (var i = sources.length - 1; i >= 0; i--) {
+        var file = sources[i];
+        var dn = path.basename(path.dirname(file))
+        var bn = path.basename(file, '.js');
+        var entry = writeFile(file, dn);
+        grunt.file.write(dest+'/'+dn+'/main.json', JSON.stringify(entry));
+        grunt.log.writeln('Widget "' + file + '" doxxed.');
+        index.widgets.push(dn)
+      }
 
-    grunt.file.write(dest+'/index.json', JSON.stringify(index));
+      grunt.file.write(dest+'/index.json', JSON.stringify(index));
+    };
 
   });
 
