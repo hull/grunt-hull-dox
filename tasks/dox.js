@@ -9,7 +9,7 @@
 
 var exec = require('child_process').exec,
     fs = require('fs'),
-    rimraf = require('rimraf');
+    rimraf = require('rimraf'),
     path = require('path'),
     dox = require('dox');
 
@@ -42,12 +42,12 @@ module.exports = function(grunt) {
         for (var i = t.length - 1; i >= 0; i--) {
           var template = t[i];
           template_basename = path.basename(template,'.hbs');
-          templates[template_basename]=grunt.file.read(template)
+          templates[template_basename]=grunt.file.read(template);
         };
         return {
           widget : widget,
           templates: templates
-        }
+        };
       }
 
       for (var i = sources.length - 1; i >= 0; i--) {
