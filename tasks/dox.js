@@ -23,11 +23,12 @@ module.exports = function(grunt) {
   // ==========================================================================
 
   grunt.registerMultiTask('dox', 'Generate dox output ', function() {
-    
+
     for (var i = this.files.length - 1; i >= 0; i--) {
       var files = this.files[i];
       var sources = files.src,
           dest = files.dest,
+          baseDir = path.resolve(files.baseDir || '') + '/',
           done = this.async(),
           index={ widgets:[] };
 
@@ -52,8 +53,7 @@ module.exports = function(grunt) {
 
       for (var i = sources.length - 1; i >= 0; i--) {
         var file = sources[i];
-        var dn = path.basename(path.dirname(file))
-        var bn = path.basename(file, '.js');
+        var dn = path.resolve(path.dirname(file)).replace(baseDir, '');
         var entry = writeFile(file, dn);
         grunt.file.write(dest+'/'+dn+'/main.json', JSON.stringify(entry));
         grunt.log.writeln('Widget "' + file + '" doxxed.');
