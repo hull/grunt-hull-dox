@@ -23,7 +23,7 @@ module.exports = function(grunt) {
   // ==========================================================================
 
   grunt.registerMultiTask('dox', 'Generate dox output ', function() {
-
+    var done = this.async();
     for (var i = this.files.length - 1; i >= 0; i--) {
       var files = this.files[i];
       var sources = files.src,
@@ -61,6 +61,8 @@ module.exports = function(grunt) {
       }
 
       grunt.file.write(dest+'/index.json', JSON.stringify(index));
+      grunt.log.writeln('All done doxxing.');
+      done();
     };
 
   });
